@@ -1,95 +1,115 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+    <title>Laravel</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+    <!-- Fonts -->
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/bootstrap-grid.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/bootstrap-reboot.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Styles -->
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .content {
+            padding: 3%;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .title {
+            font-size: 30px;
+            text-align: center;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        .data-separator {
+            margin: 20px;
+        }
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center position-ref full-height">
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+    {{--<div class="top-right links">--}}
+    {{--<a href="#">Home</a>--}}
+    {{--<a href="#">Login</a>--}}
+    {{--<a href="#">Register</a>--}}
+    {{--</div>--}}
+
+    <div class="content">
+        <h3 class="title"><b>Insurance</b> Sample Distributed Database</h3>
+        Select a query from below
+        <div class="row">
+            <div class="list-group col-sm-4">
+
+                @foreach($queries as $query)
+                    <a href="{{url($query['source'])}}"
+                       class="list-group-item list-group-item-action">{{$query["narrative"]}}</a>
+                @endforeach
+            </div>
+            <div class="col-sm-8">
+                <h3 class="data-separator">Unfragmented Query</h3>
+                <h5><code>{{$rawQuery}}</code></h5>
+
+
+                <h3 class="data-separator">Data</h3>
+
+
+                <table class="table table-dark">
+                    <thead>
+                    <tr>
+                        @foreach(array_keys(collect($data[0])->toArray()) as $header)
+                            <th scope="col">{{$header}}</th>
+                        @endforeach
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($data as $row)
+                        <tr>
+                            @foreach($row as $rowKey => $rowData)
+                                <th scope="row">{{$row[$rowKey]}}</th>
+                            @endforeach
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
+
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
+
 </html>

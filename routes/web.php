@@ -11,9 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DatabaseController@loadData');
 
-Route::get('/connection', 'DatabaseController@index');
-Route::get('/clients', 'DatabaseController@query2');
+Route::get('/query1', 'DatabaseController@query1');
+Route::get('/query2', 'DatabaseController@query2');
+Route::get('/query3', 'DatabaseController@query3');
+Route::get('/query4', 'DatabaseController@query4');
+Route::get('/query5', 'DatabaseController@query5');
+Route::get('/query6', 'DatabaseController@query6');
+Route::get('/query7', 'DatabaseController@query7');
+Route::get('/query8', 'DatabaseController@query8');
+

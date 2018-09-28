@@ -39,7 +39,22 @@ return [
             'prefix' => '',
         ],
 
-        'mysql' => [
+        'remote_mysql' => [
+            'driver' => 'mysql',
+            'host' => '41.89.64.103',
+            'port' => '3306',
+            'database' => 'distributed',
+            'username' => 'mwangi',
+            'password' => 'none',
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
+        'local_mysql' => [
             'driver' => 'mysql',
             'host' => 'localhost',
             'port' => '3306',
@@ -54,7 +69,19 @@ return [
             'engine' => null,
         ],
 
-        'pgsql' => [
+        'local_pgsql' => [
+            'driver' => 'pgsql',
+            'host' => 'localhost',
+            'port' => '5432',
+            'database' => 'insurance',
+            'username' => 'postgres',
+            'password' => 'none',
+            'charset' => 'utf8',
+            'prefix' => '',
+            'schema' => 'public',
+            'sslmode' => 'prefer',
+        ],
+        'remote_pgsql' => [
             'driver' => 'pgsql',
             'host' => '41.89.64.115',
             'port' => '5432',
