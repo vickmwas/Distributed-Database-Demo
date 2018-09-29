@@ -186,17 +186,18 @@ class DatabaseController extends RelationshipsController
     public function query6()
     {
         $claims = $this->get_claims();
-        $payments = $this->get_payments();
+         $payments = $this->get_payments();
         $claim_payments_mpesa = collect(array());
+
         for ($index = 0; $index < count($payments); $index++) {
             for ($index2 = 0; $index2 < count($claims); $index2++) {
-                if (collect($claims[$index2])['client_policy_id'] == collect($payments[$index])['client_policy_id']
-                    && collect($payments[$index])['payment_type'] == "MPESA") {
+                if (collect($claims[$index2])['client_policy_id'] == collect($payments[$index])['client_policy_id'] && collect($payments[$index])['payment_type'] == "MPESA")
+                {
                     $claim_payments_mpesa->push(collect($claims[$index2])->union($payments[$index]));
                     break;
                 }
             }
-        }
+        }        
 
         $data =  $claim_payments_mpesa->map(function ($clients) {
             return collect($clients)->only('name', 'phone', 'payment_type', 'incident_details');
@@ -205,7 +206,7 @@ class DatabaseController extends RelationshipsController
         $queries = $this->loadData();
         $rawQuery = $queries[5]["query"];
 
-//        return get_defined_vars();
+       
         return view('welcome', get_defined_vars());
     }
 

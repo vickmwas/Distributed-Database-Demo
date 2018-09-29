@@ -14,8 +14,8 @@ class RelationshipsController extends Controller
     function __construct()
     {
         $this->sqlsrv = DB::connection('sqlsrv');
-        $this->mysql = DB::connection('local_mysql');
-        $this->pgsql = DB::connection('local_pgsql');
+        $this->mysql = DB::connection('remote_mysql');
+        $this->pgsql = DB::connection('remote_pgsql');
     }
 
 
@@ -131,10 +131,12 @@ class RelationshipsController extends Controller
 
     public function get_claims()
     {
+        // return collect($this->mysql->select("SELECT claims4.* from claims4"));
         $client_policies = $this->get_clients_policies_relationships();
 
         $claims = collect(array());
 
+        $claims = $claims->merge(collect($this->mysql->select("SELECT claims4.* from claims4")));
         $claims = $claims->merge(collect($this->sqlsrv->select("SELECT claims1.* from claims1")));
         $claims = $claims->merge(collect($this->sqlsrv->select("SELECT claims2.* from claims2")));
         $claims = $claims->merge(collect($this->sqlsrv->select("SELECT claims3.* from claims3")));
@@ -143,6 +145,12 @@ class RelationshipsController extends Controller
         $claims = $claims->merge(collect($this->mysql->select("SELECT claims6.* from claims6")));
         $claims = $claims->merge(collect($this->pgsql->select("SELECT claims7.* from claims7")));
         $claims = $claims->merge(collect($this->pgsql->select("SELECT claims8.* from claims8")));
+
+        // return $claims;
+
+        // echo "Client policies = ".$client_policies."\n\n";
+        // echo "Claims = ".$claims."\n\n";
+
 
         for ($index = 0; $index < count($claims); $index++) {
             for ($j = 0; $j < count($client_policies); $j++) {
@@ -154,6 +162,7 @@ class RelationshipsController extends Controller
         }
         return $claims;
     }
+
 
     public function get_claims_in_range(){
         return $this->sqlsrv->select("SELECT claims1.* FROM claims1");

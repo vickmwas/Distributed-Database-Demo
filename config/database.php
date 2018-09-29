@@ -41,7 +41,7 @@ return [
 
         'remote_mysql' => [
             'driver' => 'mysql',
-            'host' => '41.89.64.103',
+            'host' => '192.168.43.240',
             'port' => '3306',
             'database' => 'distributed',
             'username' => 'mwangi',
@@ -83,7 +83,7 @@ return [
         ],
         'remote_pgsql' => [
             'driver' => 'pgsql',
-            'host' => '41.89.64.115',
+            'host' => '192.168.43.101',
             'port' => '5432',
             'database' => 'distributed',
             'username' => 'postgres',

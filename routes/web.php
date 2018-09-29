@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'DatabaseController@loadData');
+Route::get('/', 'DatabaseController@query1');
 
 Route::get('/query1', 'DatabaseController@query1');
 Route::get('/query2', 'DatabaseController@query2');
